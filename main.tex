@@ -1,0 +1,74 @@
+\documentclass[12pt,reqno]{amsart}
+
+\usepackage{amsfonts,amsmath,amssymb,amsthm,mathtools}
+\usepackage{mathrsfs}       % \mathscr
+\usepackage{xfrac}
+\usepackage{enumerate}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+\linespread{1.1}
+\allowdisplaybreaks
+\numberwithin{equation}{subsection}
+
+% ---- Input all macros ---------------------------------------------------
+\input{macros}
+
+% ---- Theorem environments -----------------------------------------------
+% Section-numbered family (single counter: thm)
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{claim}[thm]{Claim}
+
+\theoremstyle{definition}
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{example}[thm]{Example}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{nota}[thm]{Notation}
+\newtheorem{ques}[thm]{Question}
+
+% Letter-numbered family (for main results stated in the introduction)
+\newtheorem{letterthm}{Theorem}
+\renewcommand{\theletterthm}{\Alph{letterthm}}
+\newtheorem{lettercor}[letterthm]{Corollary}
+\renewcommand{\thelettercor}{\Alph{lettercor}}
+\newtheorem{letterconj}[letterthm]{Conjecture}
+\renewcommand{\theletterconj}{\Alph{letterconj}}
+
+% Unnumbered environments
+\newtheorem*{mainthm}{Main Theorem}
+\newtheorem*{question}{Question}
+\newtheorem*{opr}{Open Problem}
+
+% Step environment (inside long proofs)
+\newtheorem{step}{Step}
+
+% ---- Front matter -------------------------------------------------------
+\title{Riordan Arrays}
+
+\author{Jon Bannon}
+\address{}
+\email{jbannon@siena.edu}
+
+\keywords{}
+\subjclass[2020]{}
+
+\begin{document}
+
+\begin{abstract}
+% One paragraph: hypotheses, then the results.
+\end{abstract}
+
+\maketitle
+
+\input{sections/intro}
+
+% Uncomment both lines once you add your first \cite:
+% \bibliographystyle{amsalpha}
+% \bibliography{refs}
+
+\end{document}

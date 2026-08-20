@@ -1,0 +1,17 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.pdf
+
+# Private working material that must never be committed
+# (e.g. a style corpus distilled from personal writing). Keep raw
+# personal text here, out of git history.
+private/
+*.private.*
