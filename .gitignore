@@ -13,6 +13,9 @@
 # Lean build artifacts and downloaded dependencies
 **/.lake/
 
+# Python bytecode
+**/__pycache__/
+
 # Private working material that must never be committed
 # (e.g. a style corpus distilled from personal writing). Keep raw
 # personal text here, out of git history.
