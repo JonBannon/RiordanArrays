@@ -1,0 +1,156 @@
+\section{The extension to arbitrary finite fields}
+
+Let $\mathbb F_q$ have characteristic $p$. The arguments of Section~2 extend
+after replacing five by $p$. We state the results separately because the Lean
+formalization currently treats only $\mathbb F_5$.
+
+Fix nonzero polynomials $p_1,p_2,p_3,p_4\in\mathbb F_q[t]$ such that
+$p_2(0)p_4(0)\ne0$, and impose $g(0)\ne0$, $f(0)=0$, and $f'(0)\ne0$. Set
+\[
+g(t)=\frac{p_1(t)}{p_2(t)},
+\qquad
+f(t)=\frac{p_3(t)}{p_4(t)}.
+\]
+The $k$th column generating function and its denominator before cancellation
+are
+\[
+H_k(t)=\frac{p_1(t)p_3(t)^k}{p_2(t)p_4(t)^k},
+\qquad
+Q_k(t)=p_2(t)p_4(t)^k.
+\]
+Define
+\[
+\pi_k=\polyord(Q_k)
+=\min\{N\geqslant1:Q_k(t)\mid t^N-1\}.
+\]
+The coefficients of $H_k$ are eventually $\pi_k$-periodic. If
+$Q_k$ is coprime to $p_1p_3^k$, then $\pi_k$ is the least eventual period.
+
+\subsection{Period growth}
+
+The Frobenius identity is
+\begin{equation}\label{eq:q-frobenius}
+(t^N-1)^p=t^{pN}-1.
+\end{equation}
+As before, $Q_k\mid Q_{k+1}$ gives $\pi_k\mid\pi_{k+1}$. For
+$k\geqslant1$, one also has
+\[
+Q_{k+1}\mid Q_k^2\mid Q_k^p.
+\]
+Together with Equation~\eqref{eq:q-frobenius}, this gives
+$\pi_{k+1}\mid p\pi_k$.
+
+\begin{prop}\label{prop:q-ratio}
+If $k\geqslant1$, then
+\[
+\pi_{k+1}=\pi_k
+\qquad\text{or}\qquad
+\pi_{k+1}=p\pi_k.
+\]
+Consequently, there is a nondecreasing sequence $(u_k)_{k\geqslant1}$ with
+$u_1=0$ such that
+\[
+\pi_k=\pi_1p^{u_k}.
+\]
+\end{prop}
+
+For the explicit formula, define
+\[
+\lambda_p(m)=\min\{j\geqslant0:m\leqslant p^j\}
+\qquad(m\geqslant1).
+\]
+Suppose a common finite family of pairwise nonassociated irreducibles gives
+\[
+p_2=\prod_{i\in I}\varphi_i^{a_i},
+\qquad
+p_4=\prod_{i\in I}\varphi_i^{b_i},
+\]
+where $\varphi_i(0)\ne0$ and $a_i+kb_i\geqslant1$. Write
+$e_i=\polyord(\varphi_i)$. The roots of $\varphi_i$ lie in the multiplicative
+group of a finite extension of $\mathbb F_q$, so $p\nmid e_i$. The
+prime-power formula becomes
+\[
+\polyord(\varphi_i^m)=e_i p^{\lambda_p(m)}.
+\]
+Therefore
+\begin{prop}\label{prop:q-formula}
+Under the preceding factorization hypotheses,
+\begin{align*}
+\pi_k
+&=\mathop{\operatorname{lcm}}_{i\in I}
+  \left(e_i p^{\lambda_p(a_i+kb_i)}\right)\\
+&=E p^{s_k},
+\end{align*}
+where
+\[
+E=\mathop{\operatorname{lcm}}_{i\in I}e_i,
+\qquad
+s_k=\max_{i\in I}\lambda_p(a_i+kb_i).
+\]
+\end{prop}
+
+Thus rational second components produce a tower of changing block lengths.
+This differs from the polynomial second-component setting, where the
+denominator of the column generating function is fixed and one circulant
+space suffices for all columns.
+
+\subsection{The circulant correspondence}
+
+For $N\geqslant1$, let
+\[
+\mathcal C_N(\mathbb F_q)=\mathbb F_q[t]/(t^N-1).
+\]
+Take $N=\pi_{k+1}$. Both $H_k$ and $H_{k+1}$ are eventually $N$-periodic
+because $\pi_k\mid\pi_{k+1}$. If $B_k$ and $B_{k+1}$ are length-$N$ blocks
+read from the same sufficiently late position, then
+\[
+p_4(t)H_{k+1}(t)=p_3(t)H_k(t)
+\]
+gives the following relation.
+
+\begin{prop}\label{prop:q-block}
+The neighboring periodic blocks satisfy
+\[
+p_4(t)B_{k+1}=p_3(t)B_k
+\quad\text{in }\mathcal C_N(\mathbb F_q).
+\]
+The block $B_k$ is its length-$\pi_k$ block repeated $N/\pi_k$ times.
+If $p_4$ is nonconstant, then its class in
+$\mathcal C_N(\mathbb F_q)$ is not a unit.
+\end{prop}
+
+The last assertion follows from
+\[
+p_4\mid Q_{k+1}\mid t^N-1.
+\]
+Thus the block relation specifies the affine solution set
+\[
+\{B\in\mathcal C_N(\mathbb F_q):p_4B=p_3B_k\}
+\]
+rather than the value of an invertible circulant operator applied to $B_k$.
+
+\subsection{Pascal's array modulo \texorpdfstring{$p$}{p}}
+
+For
+\[
+g(t)=\frac{1}{1-t},
+\qquad
+f(t)=\frac{t}{1-t},
+\]
+the $k$th column has generating function
+\[
+H_k(t)=\frac{t^k}{(1-t)^{k+1}}.
+\]
+Since $\polyord((1-t)^m)=p^{\lambda_p(m)}$, its period is
+\[
+\pi_k=p^{\lambda_p(k+1)}.
+\]
+For $N=\pi_{k+1}$, sufficiently late blocks satisfy
+\[
+(1-t)B_{k+1}=tB_k
+\quad\text{in }\mathbb F_q[t]/(t^N-1).
+\]
+The neighboring columns are therefore related by cyclic discrete
+antidifferentiation. The failure of $1-t$ to be invertible accounts for the
+nonuniqueness of a periodic antidifference when only the preceding block is
+specified.

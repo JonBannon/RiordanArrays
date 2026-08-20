@@ -48,27 +48,40 @@
 \newtheorem{step}{Step}
 
 % ---- Front matter -------------------------------------------------------
-\title{Riordan Arrays}
+\title[Periodic Blocks in Rational Riordan Arrays]
+{Periodic Blocks in Rational Riordan Arrays over Finite Fields}
 
-\author{Jon Bannon}
+\author{Nikolai Krylov}
 \address{}
-\email{jbannon@siena.edu}
+\email{}
 
-\keywords{}
-\subjclass[2020]{}
+\keywords{Riordan array, finite field, periodic sequence, circulant matrix}
+\subjclass[2020]{05A15, 11B85, 12E20}
 
 \begin{document}
 
 \begin{abstract}
-% One paragraph: hypotheses, then the results.
+We study Riordan arrays over a finite field $\mathbb F_q$ whose defining pair
+consists of rational functions. Their columns have eventually periodic
+coefficient sequences. We compute the least eventual periods under a
+coprimality hypothesis and show that consecutive periods are equal or differ
+by a factor of the characteristic. Periodic blocks of neighboring columns
+satisfy a linear equation in a circulant quotient ring. The coefficient
+multiplying the later block is generally singular, so this equation defines a
+correspondence rather than an invertible evolution. We first give the theory
+over $\mathbb F_5$, following a Lean formalization, and then extend the
+statements to arbitrary finite fields. Pascal's array provides the basic
+example.
 \end{abstract}
 
 \maketitle
 
 \input{sections/intro}
+\input{sections/formalized_f5}
+\input{sections/rational}
 
-% Uncomment both lines once you add your first \cite:
-% \bibliographystyle{amsalpha}
-% \bibliography{refs}
+% Bibliography
+\bibliographystyle{amsalpha}
+\bibliography{refs}
 
 \end{document}

@@ -1,0 +1,184 @@
+\section{The formalized case over \texorpdfstring{$\mathbb F_5$}{F5}}
+
+This section follows the Lean formalization. All polynomials and power series
+have coefficients in $\mathbb F_5=\mathbb Z/5\mathbb Z$. The notation is
+chosen to agree with the formal definitions.
+
+\subsection{Polynomial orders and column periods}
+
+For $Q\in\mathbb F_5[t]$, define
+\[
+\polyord(Q)=\polyord_{\mathbb F_5[t]/(Q)}(t),
+\]
+the multiplicative order of the residue class of $t$. When $Q$ is nonzero and
+$Q(0)\ne0$, this is the least positive integer $N$ such that
+\begin{equation}\label{eq:f5-order}
+Q(t)\mid t^N-1.
+\end{equation}
+More generally, the formalization proves the divisibility criterion
+\begin{equation}\label{eq:f5-order-divisibility}
+\polyord(Q)\mid N
+\quad\Longleftrightarrow\quad
+Q(t)\mid t^N-1.
+\end{equation}
+
+Fix
+\[
+g(t)=\frac{p_1(t)}{p_2(t)},
+\qquad
+f(t)=\frac{p_3(t)}{p_4(t)},
+\]
+where $p_2(0)p_4(0)\ne0$. The generating function of column $k$ is
+\begin{equation}\label{eq:f5-column}
+H_k(t)=\frac{p_1(t)p_3(t)^k}{p_2(t)p_4(t)^k}.
+\end{equation}
+For an ordinary Riordan array one additionally assumes $g(0)\ne0$,
+$f(0)=0$, and $f'(0)\ne0$. The formalized periodicity statements themselves
+use only the displayed rational column generating functions and the
+nonvanishing denominator constants.
+Set
+\[
+Q_k(t)=p_2(t)p_4(t)^k,
+\qquad
+\pi_k=\polyord(Q_k).
+\]
+
+\begin{prop}\label{prop:f5-eventual}
+The coefficient sequence of $H_k$ is eventually $N$-periodic whenever
+$\pi_k\mid N$. If
+\[
+\gcd\bigl(Q_k,p_1p_3^k\bigr)=1,
+\]
+then every eventual period of $H_k$ is divisible by $\pi_k$. In particular,
+$\pi_k$ is its least eventual period.
+\end{prop}
+
+The first statement follows by multiplying Equation~\eqref{eq:f5-column} by
+$t^N-1$. For the converse, eventual $N$-periodicity makes
+$(t^N-1)H_k$ a polynomial. Coprimality then implies
+$Q_k\mid t^N-1$, and Equation~\eqref{eq:f5-order-divisibility} gives
+$\pi_k\mid N$.
+
+\subsection{The five-adic period tower}
+
+The formalized argument uses
+\begin{equation}\label{eq:f5-frobenius}
+(t^N-1)^5=t^{5N}-1.
+\end{equation}
+Since $Q_k\mid Q_{k+1}$, one has $\pi_k\mid\pi_{k+1}$. If $k\geqslant1$,
+then
+\[
+Q_{k+1}=p_2p_4^{k+1}\mid(p_2p_4^k)^2=Q_k^2.
+\]
+It follows from Equation~\eqref{eq:f5-frobenius} that
+$Q_{k+1}\mid t^{5\pi_k}-1$, and hence $\pi_{k+1}\mid5\pi_k$.
+
+\begin{prop}\label{prop:f5-ratio}
+Suppose $p_2$ and $p_4$ are nonzero with nonzero constant terms. If
+$k\geqslant1$, then
+\[
+\pi_{k+1}=\pi_k
+\qquad\text{or}\qquad
+\pi_{k+1}=5\pi_k.
+\]
+Consequently, there is a nondecreasing function $u\colon\mathbb N\to\mathbb
+N$ with $u(1)=0$ such that
+\[
+\pi_k=\pi_1 5^{u(k)}
+\qquad(k\geqslant1).
+\]
+\end{prop}
+
+The formalization also verifies the factorization formula. Define
+\[
+\lambda_5(m)=\min\{j\geqslant0:m\leqslant5^j\}
+\qquad(m\geqslant1).
+\]
+If $\varphi$ is irreducible and $\varphi(0)\ne0$, then
+\begin{equation}\label{eq:f5-prime-power}
+\polyord(\varphi^m)=\polyord(\varphi)5^{\lambda_5(m)}.
+\end{equation}
+Suppose a common finite family of pairwise nonassociated irreducibles gives
+\[
+p_2=\prod_{i\in I}\varphi_i^{a_i},
+\qquad
+p_4=\prod_{i\in I}\varphi_i^{b_i},
+\]
+with $\varphi_i(0)\ne0$ and $a_i+kb_i\geqslant1$. Then
+\begin{align}
+\pi_k
+&=\mathop{\operatorname{lcm}}_{i\in I}
+  \left(\polyord(\varphi_i)5^{\lambda_5(a_i+kb_i)}\right)\label{eq:f5-lcm}\\
+&=E5^{s_k},\label{eq:f5-explicit}
+\end{align}
+where
+\[
+E=\mathop{\operatorname{lcm}}_{i\in I}\polyord(\varphi_i),
+\qquad
+s_k=\max_{i\in I}\lambda_5(a_i+kb_i).
+\]
+The second equality uses the fact that each $\polyord(\varphi_i)$ is relatively
+prime to five.
+
+\subsection{Circulant blocks}
+
+Let a power series $H(t)=\sum_{n\geqslant0}c_nt^n$ be eventually
+$N$-periodic. For a starting index $M$ after the periodic tail has begun,
+define
+\[
+B_{N,M}(H)=\sum_{r=0}^{N-1}c_{M+r}t^r
+\quad\text{in}\quad
+\mathcal C_N=\mathbb F_5[t]/(t^N-1).
+\]
+The formalization proves that taking a sufficiently late block intertwines
+multiplication by a polynomial with multiplication by its class in
+$\mathcal C_N$. It also proves that moving the starting index corresponds to
+cyclic shift.
+
+The column generating functions satisfy
+\begin{equation}\label{eq:f5-neighbors}
+p_4(t)H_{k+1}(t)=p_3(t)H_k(t).
+\end{equation}
+
+\begin{prop}\label{prop:f5-block}
+Let $N=\pi_{k+1}$. There is an index $M_0$ such that, for every
+$M\geqslant M_0$, the length-$N$ blocks read from columns $k$ and $k+1$
+satisfy
+\[
+p_4(t)B_{N,M}(H_{k+1})=p_3(t)B_{N,M}(H_k)
+\quad\text{in }\mathcal C_N.
+\]
+Moreover, $B_{N,M}(H_k)$ is the length-$\pi_k$ block repeated
+$N/\pi_k$ times.
+\end{prop}
+
+If $p_4$ is nonconstant, its class in $\mathcal C_N$ is not a unit because
+$p_4\mid Q_{k+1}\mid t^N-1$. Thus the displayed relation cannot generally be
+solved by inverting $p_4$.
+
+\subsection{Pascal's array modulo five}
+
+For
+\[
+g(t)=\frac{1}{1-t},
+\qquad
+f(t)=\frac{t}{1-t},
+\]
+one has
+\[
+H_k(t)=\frac{t^k}{(1-t)^{k+1}},
+\qquad
+\pi_k=5^{\lambda_5(k+1)}.
+\]
+The first periods are
+\[
+1,5,5,5,5,25,\ldots,25,125,\ldots.
+\]
+For $N=\pi_{k+1}$, sufficiently late neighboring blocks satisfy
+\[
+(1-t)B_{k+1}=tB_k
+\quad\text{in }\mathbb F_5[t]/(t^N-1).
+\]
+This is a cyclic discrete-antidifference equation. The formalization also
+checks directly that the class of $1-t$ is not a unit in the corresponding
+circulant ring.

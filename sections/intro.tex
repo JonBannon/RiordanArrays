@@ -1,4 +1,111 @@
 \section{Introduction}
 
-% State the setting and the main results. Promote settled material here from
-% dialogue/dialogue.md.
+An ordinary Riordan array is determined by two formal power series
+$(g(t),f(t))$, and its $k$th column has generating function
+\[
+H_k(t)=g(t)f(t)^k.
+\]
+Krylov used circulant matrices to describe the periodic blocks for a family
+with polynomial second component \cite{Krylov2025}. Bellamy, Pflomm, and
+Krylov subsequently developed periodicity results for polynomial Riordan
+arrays over finite fields, including higher-dimensional arrays and periodic
+column partial sums \cite{BellamyPflommKrylov2026}. The present paper replaces
+the polynomial second component by a rational one. Its denominators then vary
+with the column index, so the block length is no longer fixed.
+
+When $g$ and $f$ are rational over a finite field, every column sequence is
+eventually periodic, as follows from the standard theory of rational
+generating functions over finite fields \cite{Golomb1967,LidlNiederreiter1997}.
+The denominator of $H_k$ changes with $k$ when $f$ is rational but not
+polynomial. The resulting growth in factor multiplicities causes the periods
+of neighboring columns to change in a restricted way.
+
+Write
+\[
+g(t)=\frac{p_1(t)}{p_2(t)},
+\qquad
+f(t)=\frac{p_3(t)}{p_4(t)}
+\]
+over a finite field $\mathbb F_q$ of characteristic $p$, and assume that
+$p_2$ and $p_4$ are nonzero with nonzero constant terms. We also impose the
+usual Riordan conditions $g(0)\ne0$, $f(0)=0$, and $f'(0)\ne0$. Before cancellation,
+the denominator of column $k$ is
+\[
+Q_k(t)=p_2(t)p_4(t)^k.
+\]
+Let $\pi_k$ be the least positive integer $N$ for which $Q_k$ divides
+$t^N-1$. If the numerator and denominator of $H_k$ are coprime, then $\pi_k$
+is the least eventual period of column $k$. Without that coprimality
+hypothesis, it is still an eventual period, but it need not be least.
+
+Our first main conclusion is that $(\pi_k)$ forms a tower controlled by the
+characteristic.
+
+\begin{letterthm}\label{thm:intro-period}
+Suppose $k\geqslant1$. Then
+\[
+\pi_{k+1}=\pi_k
+\qquad\text{or}\qquad
+\pi_{k+1}=p\pi_k.
+\]
+Consequently, there is a nondecreasing sequence $(s_k)_{k\geqslant1}$ such
+that
+\[
+\pi_k=\pi_1p^{s_k}.
+\]
+\end{letterthm}
+
+This behavior follows from the Frobenius identity
+\[
+(t^N-1)^p=t^{pN}-1.
+\]
+It also has an explicit factorization description. If
+\[
+Q_k=\prod_i\varphi_i^{a_i+kb_i},
+\]
+then
+\[
+\pi_k=E p^{u_k},
+\]
+where $E$ is the least common multiple of the orders of the distinct
+irreducible factors $\varphi_i$, and $u_k$ is the largest base-$p$ ceiling
+logarithm of their multiplicities.
+
+The second conclusion concerns the periodic blocks themselves. An
+$N$-periodic block is naturally an element of the circulant ring
+\[
+\mathcal C_N=\mathbb F_q[t]/(t^N-1),
+\]
+where multiplication by $t$ acts as cyclic shift. We use the standard
+polynomial model of circulant matrices \cite{Davis1979}. The identity
+\[
+p_4(t)H_{k+1}(t)=p_3(t)H_k(t)
+\]
+therefore descends to an equation between sufficiently late periodic blocks.
+
+\begin{letterthm}\label{thm:intro-block}
+Let $N=\pi_{k+1}$, and read length-$N$ blocks $B_k$ and $B_{k+1}$ from the
+same sufficiently late position in columns $k$ and $k+1$. Then
+\[
+p_4(t)B_{k+1}=p_3(t)B_k
+\qquad\text{in }\mathcal C_N.
+\]
+The block $B_k$ is obtained by repeating a length-$\pi_k$ block
+$N/\pi_k$ times.
+\end{letterthm}
+
+The coefficient $p_4(t)$ is generally not invertible in $\mathcal C_N$.
+Indeed, if $p_4$ is nonconstant, then $p_4$ divides $t^N-1$. The block
+relation is therefore a linear correspondence, not a uniquely invertible
+transition from one column to the next.
+
+Section~2 presents the case of $\mathbb F_5$ in the notation and scope of an
+accompanying Lean formalization.\footnote{The Lean source and project files
+are available at
+\url{https://github.com/JonBannon/RiordanArrays/tree/master/RiordanFormalization}.}
+The formal development includes polynomial
+orders, least eventual periods, the period-ratio theorem, the circulant block
+relation, the repetition map, and the Pascal example. Section~3 gives the
+corresponding statements over an arbitrary finite field $\mathbb F_q$ of
+characteristic $p$. This separation records exactly which specialization has
+been formally checked while retaining the natural finite-field formulation.
