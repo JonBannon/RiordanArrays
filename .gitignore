@@ -10,6 +10,9 @@
 *.synctex.gz
 *.pdf
 
+# Lean build artifacts and downloaded dependencies
+**/.lake/
+
 # Private working material that must never be committed
 # (e.g. a style corpus distilled from personal writing). Keep raw
 # personal text here, out of git history.
